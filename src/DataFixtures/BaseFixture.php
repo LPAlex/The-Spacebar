@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -19,7 +19,7 @@ abstract class BaseFixture extends Fixture
 
     abstract protected function loadData(ObjectManager $manager);
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
         $this->faker = Factory::create();
@@ -63,9 +63,11 @@ abstract class BaseFixture extends Fixture
         if (!isset($this->referencesIndex[$groupName])) {
             $this->referencesIndex[$groupName] = [];
 
-            foreach ($this->referenceRepository->getReferences() as $key => $ref) {
-                if (strpos($key, $groupName.'_') === 0) {
-                    $this->referencesIndex[$groupName][] = $key;
+            foreach ($this->referenceRepository->getReferencesByClass() as $refs) {
+                foreach ($refs as $key => $ref) {
+                    if (strpos($key, $groupName.'_') === 0) {
+                        $this->referencesIndex[$groupName][] = [$key, get_class($ref)];
+                    }
                 }
             }
         }
@@ -74,9 +76,9 @@ abstract class BaseFixture extends Fixture
             throw new \InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s"', $groupName));
         }
 
-        $randomReferenceKey = $this->faker->randomElement($this->referencesIndex[$groupName]);
+        [$randomReferenceKey, $class] = $this->faker->randomElement($this->referencesIndex[$groupName]);
 
-        return $this->getReference($randomReferenceKey);
+        return $this->getReference($randomReferenceKey, $class);
     }
 
     protected function getRandomReferences(string $groupName, int $count)

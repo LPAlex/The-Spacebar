@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Comment;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class CommentFixture extends BaseFixture implements DependentFixtureInterface
 {
@@ -28,7 +28,7 @@ class CommentFixture extends BaseFixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [ArticleFixtures::class];
     }

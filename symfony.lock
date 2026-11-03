@@ -29,6 +29,15 @@
     "doctrine/dbal": {
         "version": "v2.7.1"
     },
+    "doctrine/deprecations": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "fdd756167454623e21f1d769c5b814b243782a67"
+        }
+    },
     "doctrine/doctrine-bundle": {
         "version": "1.6",
         "recipe": {
@@ -437,6 +446,18 @@
             "ref": "f75ac166398e107796ca94cc57fa1edaa06ec47f"
         }
     },
+    "symfony/validator": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "c32cfd98f714894c4f128bb99aa2530c1227603c"
+        },
+        "files": [
+            "./config/packages/validator.yaml"
+        ]
+    },
     "symfony/var-dumper": {
         "version": "v4.0.3"
     },
@@ -469,6 +490,9 @@
             "version": "1.0",
             "ref": "4851df0afc426b8f07204379d21fca25b6df5d68"
         }
+    },
+    "twig/extra-bundle": {
+        "version": "v3.29.0"
     },
     "twig/twig": {
         "version": "v2.4.4"
