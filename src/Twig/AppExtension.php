@@ -4,7 +4,7 @@ namespace App\Twig;
 
 use App\Service\MarkdownHelper;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -32,7 +32,7 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
             ->parse($value);
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return [
             MarkdownHelper::class,
